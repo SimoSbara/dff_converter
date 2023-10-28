@@ -11,6 +11,7 @@ It can convert to:
 Libraries used:
 * [CxImage](https://www.codeproject.com/Articles/1300/CxImage) for multiple format image encoding/decoding;
 * [RWTools](https://github.com/aap/rwtools) for renderware DFF and TXD encoding/decoding;
+* [TinyGLTF](https://github.com/syoyo/tinygltf) for writing/reading a GLTF model.
 
 ## Requirements for Devs
 * Visual Studio 2022+
