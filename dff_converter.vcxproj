@@ -138,6 +138,7 @@
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="ConverterGLTF.cpp" />
     <ClCompile Include="dff_converter.cpp" />
+    <ClCompile Include="lodepng\lodepng.cpp" />
     <ClCompile Include="rwtools\dffconv.cpp" />
     <ClCompile Include="rwtools\dffread.cpp" />
     <ClCompile Include="rwtools\dffwrite.cpp" />
@@ -155,6 +156,7 @@
   <ItemGroup>
     <ClInclude Include="Converter.h" />
     <ClInclude Include="ConverterGLTF.h" />
+    <ClInclude Include="lodepng\lodepng.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="rwtools\args.h" />
     <ClInclude Include="rwtools\renderware.h" />
