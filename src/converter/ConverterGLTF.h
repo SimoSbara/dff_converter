@@ -4,6 +4,11 @@
 #include <map>
 #include <unordered_set>
 
+#ifndef WIN32
+	typedef unsigned char BYTE;
+	typedef unsigned short USHORT;
+#endif
+
 class ConverterGLTF : public Converter
 {
 private:

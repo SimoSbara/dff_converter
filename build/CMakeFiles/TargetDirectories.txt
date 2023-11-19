@@ -1,0 +1,14 @@
+/root/Progetti_GIT/dff_converter/build/CMakeFiles/edit_cache.dir
+/root/Progetti_GIT/dff_converter/build/CMakeFiles/rebuild_cache.dir
+/root/Progetti_GIT/dff_converter/build/CMakeFiles/list_install_components.dir
+/root/Progetti_GIT/dff_converter/build/CMakeFiles/install.dir
+/root/Progetti_GIT/dff_converter/build/CMakeFiles/install/local.dir
+/root/Progetti_GIT/dff_converter/build/CMakeFiles/install/strip.dir
+/root/Progetti_GIT/dff_converter/build/src/CMakeFiles/converter.dir
+/root/Progetti_GIT/dff_converter/build/src/CMakeFiles/dff_conv.dir
+/root/Progetti_GIT/dff_converter/build/src/CMakeFiles/edit_cache.dir
+/root/Progetti_GIT/dff_converter/build/src/CMakeFiles/rebuild_cache.dir
+/root/Progetti_GIT/dff_converter/build/src/CMakeFiles/list_install_components.dir
+/root/Progetti_GIT/dff_converter/build/src/CMakeFiles/install.dir
+/root/Progetti_GIT/dff_converter/build/src/CMakeFiles/install/local.dir
+/root/Progetti_GIT/dff_converter/build/src/CMakeFiles/install/strip.dir

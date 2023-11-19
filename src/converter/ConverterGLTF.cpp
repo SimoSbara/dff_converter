@@ -4,6 +4,8 @@
 #include <lodepng.h>
 
 #include <algorithm>
+#include <climits>
+#include <cfloat>
 
 ConverterGLTF::ConverterGLTF()
 {
@@ -136,7 +138,7 @@ int ConverterGLTF::insertInverseMatBones(std::vector<BYTE>& buffer, tinygltf::Sk
 
     for (int i = 0; i < geometry->inverseMatrices.size(); i++)
     {
-        //ogni 16 valori è una matrice nuova 4x4
+        //ogni 16 valori ï¿½ una matrice nuova 4x4
         float valueMat = geometry->inverseMatrices[i];
 
         //per evitare che il rango della matrice diventi 3 
@@ -209,7 +211,7 @@ int ConverterGLTF::insertBones(std::vector<BYTE>& buffer, tinygltf::Mesh& mesh, 
         //INDICI OSSA PER VERTICE
         for (int i = 0; i < numVerts; i++)
         {
-            //ogni vertice può essere pesato da 4 ossa massimo
+            //ogni vertice puï¿½ essere pesato da 4 ossa massimo
             //devo espandere ogni byte in un unsigned short (2 bytes)
             BYTE* curBones = reinterpret_cast<BYTE*>(&geometry->vertexBoneIndices[i]);
             USHORT boneVal;
@@ -286,8 +288,8 @@ int ConverterGLTF::insertUVTexture(std::vector<BYTE>& buffer, std::vector<USHORT
     {
         int index = indeces[i];
 
-        index /= 3; //divido per 3 perchè devo soppiantare le 3 dimensioni
-        index *= 2; //moltiplico per avere la dimensionalità giusta
+        index /= 3; //divido per 3 perchï¿½ devo soppiantare le 3 dimensioni
+        index *= 2; //moltiplico per avere la dimensionalitï¿½ giusta
         float U = geometry->texCoords[0][index];
         float V = geometry->texCoords[0][index + 1];
 
@@ -497,7 +499,7 @@ bool ConverterGLTF::convert(char* output, rw::Clump& dff, rw::TextureDictionary&
     //OSSA DELLO SCHELETRO
     //curBytesOffset += insertBones(buffer.data, mesh, geometry, curBytesOffset);
 
-    //ogni split è una parte della mesh con materiale diverso
+    //ogni split ï¿½ una parte della mesh con materiale diverso
     //prima salvo tutti i vertici, coordinate uv e normali dei triangoli A PARTE
     //poi man mano gli indici dei vertici per formare i triangoli in funzione del materiale
     for (int i = 0; i < splits; i++)

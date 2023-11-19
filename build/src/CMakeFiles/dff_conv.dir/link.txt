@@ -1,0 +1,1 @@
+/usr/bin/c++  -std=c++17 -rdynamic CMakeFiles/dff_conv.dir/main.cpp.o -o dff_conv  libconverter.a 
