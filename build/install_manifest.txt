@@ -1,1 +1,0 @@
-/root/Progetti_GIT/dff_converter/bin/dff_conv
