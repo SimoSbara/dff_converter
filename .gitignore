@@ -3,3 +3,4 @@ input/*
 output/*
 out/*
 build/*
+bin/*
