@@ -22,7 +22,19 @@ add_library(dff_converter_static STATIC
 
 add_executable(dff_conv ${SOURCE_FILES})
 
+set_target_properties(dff_converter PROPERTIES PUBLIC_HEADER "${CMAKE_INSTALL_PREFIX}/externals/tinygltf/tiny_gltf.h;converter/Converter.h;converter/ConverterGLTF.h;rwtools/renderware.h")
+set_target_properties(dff_converter_static PROPERTIES PUBLIC_HEADER "${CMAKE_INSTALL_PREFIX}/externals/tinygltf/tiny_gltf.h;converter/Converter.h;converter/ConverterGLTF.h;rwtools/renderware.h")
+
+
 target_link_libraries(dff_conv dff_converter)
 target_link_libraries(dff_conv dff_converter_static)
 
-install(TARGETS dff_conv DESTINATION ${DFF_CONVERTER_INSTALL_BIN_DIR}/x${OSBit}/${CMAKE_BUILD_TYPE})
+install(TARGETS dff_conv DESTINATION ${DFF_CONVERTER_RUNTIME_OUTPUT_DIRECTORY})
+install(TARGETS dff_converter 
+        DESTINATION ${DFF_CONVERTER_LIBRARY_OUTPUT_DIRECTORY}
+        PUBLIC_HEADER DESTINATION ${DFF_CONVERTER_INCLUDE_OUTPUT_DIRECTORY}
+)
+install(TARGETS dff_converter_static 
+        DESTINATION ${DFF_CONVERTER_LIBRARY_OUTPUT_DIRECTORY}
+        PUBLIC_HEADER DESTINATION ${DFF_CONVERTER_INCLUDE_OUTPUT_DIRECTORY}
+)

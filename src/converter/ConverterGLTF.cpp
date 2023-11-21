@@ -431,7 +431,9 @@ int ConverterGLTF::insertIndices(std::vector<BYTE>& buffer, rw::Split* split, in
 
 bool ConverterGLTF::convert(char* output, rw::Clump& dff)
 {
-    return convert(output, dff, rw::TextureDictionary());
+    rw::TextureDictionary emptyTXD;
+
+    return convert(output, dff, emptyTXD);
 }
 
 bool ConverterGLTF::convert(char* output, rw::Clump& dff, rw::TextureDictionary& txd)
