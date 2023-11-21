@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.0.0)
 project(dff_conv)
 
 set(SOURCE_FILES main.cpp)
-
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 file(GLOB RWTOOLS "rwtools/*.cpp")
@@ -26,4 +25,4 @@ add_executable(dff_conv ${SOURCE_FILES})
 target_link_libraries(dff_conv dff_converter)
 target_link_libraries(dff_conv dff_converter_static)
 
-install(TARGETS dff_conv DESTINATION ${DFF_CONVERTER_INSTALL_BIN_DIR})
+install(TARGETS dff_conv DESTINATION ${DFF_CONVERTER_INSTALL_BIN_DIR}/x${OSBit}/${CMAKE_BUILD_TYPE})

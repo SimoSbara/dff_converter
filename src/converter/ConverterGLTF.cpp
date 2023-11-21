@@ -429,6 +429,11 @@ int ConverterGLTF::insertIndices(std::vector<BYTE>& buffer, rw::Split* split, in
     return bytesLength;
 }
 
+bool ConverterGLTF::convert(char* output, rw::Clump& dff)
+{
+    return convert(output, dff, rw::TextureDictionary());
+}
+
 bool ConverterGLTF::convert(char* output, rw::Clump& dff, rw::TextureDictionary& txd)
 {
     if (dff.geometryList.size() <= 0)

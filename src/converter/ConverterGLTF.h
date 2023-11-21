@@ -4,11 +4,6 @@
 #include <map>
 #include <unordered_set>
 
-#ifndef WIN32
-	typedef unsigned char BYTE;
-	typedef unsigned short USHORT;
-#endif
-
 class ConverterGLTF : public Converter
 {
 private:
@@ -45,5 +40,6 @@ public:
 	ConverterGLTF();
 
 	virtual bool convert(char* output, rw::Clump& dff, rw::TextureDictionary& txd);
+	virtual bool convert(char* output, rw::Clump& dff);
 };
 
