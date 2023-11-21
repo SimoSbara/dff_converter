@@ -21,6 +21,7 @@ Pull tinygltf external: `git submodule init && git submodule update`
 * Create a build folder and go in it: `mkdir build && cd build`
 * Run CMake: `cmake ..`
 * Run Make: `make install`
+* The output is inside the main folder bin/
 
 ## Build on Windows
 I generally use Visual Studio 2019+ for CMake.
