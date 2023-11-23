@@ -9,6 +9,7 @@
 
 class Converter
 {
+	virtual bool convert(char* output, char* inputDff, char* inputTxd) = 0;
 	virtual bool convert(char* output, rw::Clump &dff, rw::TextureDictionary &txd) = 0;
 	virtual bool convert(char* output, rw::Clump &dff) = 0;
 };

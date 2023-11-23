@@ -3,6 +3,7 @@
 #include "util.h"
 #include <lodepng.h>
 
+#include <fstream>
 #include <algorithm>
 #include <climits>
 #include <cfloat>
@@ -429,6 +430,20 @@ int ConverterGLTF::insertIndices(std::vector<BYTE>& buffer, rw::Split* split, in
     return bytesLength;
 }
 
+bool ConverterGLTF::convert(char* output, char* inputDff, char* inputTxd)
+{
+    std::ifstream dff(inputDff, std::ios::binary);
+    std::ifstream txd(inputTxd, std::ios::binary);
+
+    rw::Clump dffStruct;
+    rw::TextureDictionary txdStruct;
+
+    dffStruct.read(dff);
+    txdStruct.read(txd);
+
+    return convert(output, dffStruct, txdStruct);
+}
+
 bool ConverterGLTF::convert(char* output, rw::Clump& dff)
 {
     rw::TextureDictionary emptyTXD;
@@ -463,6 +478,11 @@ bool ConverterGLTF::convert(char* output, rw::Clump& dff, rw::TextureDictionary&
 
     int splits = geometry->splits.size();
     int curBytesOffset = 0;
+
+    int positionsIndex = -1;
+    int normalsIndex = -1;
+    int texCoordIndex = -1;
+
 
     materials.clear();
 
@@ -499,10 +519,19 @@ bool ConverterGLTF::convert(char* output, rw::Clump& dff, rw::TextureDictionary&
 
     //VERTICI
     curBytesOffset += insertVertices(buffer.data, indeces, geometry, curBytesOffset);
+    positionsIndex = currentAccessor - 1;
     //COORDINATE UV
-    curBytesOffset += insertUVTexture(buffer.data, indeces, geometry, curBytesOffset);
+    if (materials.size() > 0)
+    {
+        curBytesOffset += insertUVTexture(buffer.data, indeces, geometry, curBytesOffset);
+        texCoordIndex = currentAccessor - 1;
+    }
     //NORMALI
     curBytesOffset += insertNormals(buffer.data, indeces, geometry, curBytesOffset);
+    normalsIndex = currentAccessor - 1;
+
+
+
     //OSSA DELLO SCHELETRO
     //curBytesOffset += insertBones(buffer.data, mesh, geometry, curBytesOffset);
 
@@ -522,17 +551,20 @@ bool ConverterGLTF::convert(char* output, rw::Clump& dff, rw::TextureDictionary&
         primitive.indices = currentAccessor - 1;
 
         //VERTICI
-        primitive.attributes["POSITION"] = 0;
+        primitive.attributes["POSITION"] = positionsIndex;
 
         //NORMALI
         if(geometry->hasNormals)
-            primitive.attributes["NORMAL"] = 2;
+            primitive.attributes["NORMAL"] = normalsIndex;
 
         //COORDINATE UV
-        std::string texCoord = "TEXCOORD_0";
-        primitive.attributes[texCoord] = 1;
+        if (texCoordIndex >= 0)
+        {
+            std::string texCoord = "TEXCOORD_0";
+            primitive.attributes[texCoord] = 1;
+            primitive.material = material;
+        }
 
-        primitive.material = material;
         primitive.mode = TINYGLTF_MODE_TRIANGLES;
 
         mesh.primitives.push_back(primitive);

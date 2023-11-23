@@ -43,22 +43,18 @@ int main()
                 std::ifstream dff(inpDir + baseFile + ".dff", std::ios::binary);
                 std::ifstream txd(inpDir + baseFile + ".txd", std::ios::binary);
 
-                if (dff.is_open() && txd.is_open())
-                {
-                    rw::Clump dffStruct;
-                    rw::TextureDictionary txdStruct;
+                rw::Clump dffStruct;
+                rw::TextureDictionary txdStruct;
 
-                    dffStruct.read(dff);
-                    txdStruct.read(txd);
+                dffStruct.read(dff);
+                txdStruct.read(txd);
 
-                    output = outDir + baseFile + ".gltf";
+                output = outDir + baseFile + ".gltf";
 
-                    converter.convert((char*)output.c_str(), dffStruct, txdStruct);
-
+                if(converter.convert((char*)output.c_str(), dffStruct, txdStruct))
                     std::cout << baseFile << " converted" << std::endl;
-                }
                 else
-                    std::cout << "Cannot open " << baseFile <<  " ignoring..." << std::endl;
+                    std::cout << baseFile << " not converted!" << std::endl;
             }
         }
     }

@@ -39,6 +39,7 @@ private:
 public:
 	ConverterGLTF();
 
+	virtual bool convert(char* output, char* inputDff, char* inputTxd);
 	virtual bool convert(char* output, rw::Clump& dff, rw::TextureDictionary& txd);
 	virtual bool convert(char* output, rw::Clump& dff);
 };

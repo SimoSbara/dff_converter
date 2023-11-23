@@ -38,3 +38,6 @@ install(TARGETS dff_converter_static
         DESTINATION ${DFF_CONVERTER_LIBRARY_OUTPUT_DIRECTORY}
         PUBLIC_HEADER DESTINATION ${DFF_CONVERTER_INCLUDE_OUTPUT_DIRECTORY}
 )
+
+target_include_directories (dff_converter PUBLIC ${DFF_CONVERTER_INCLUDE_OUTPUT_DIRECTORY})
+target_include_directories (dff_converter_static PUBLIC ${DFF_CONVERTER_INCLUDE_OUTPUT_DIRECTORY})
