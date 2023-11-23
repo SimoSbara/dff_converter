@@ -432,6 +432,9 @@ int ConverterGLTF::insertIndices(std::vector<BYTE>& buffer, rw::Split* split, in
 
 bool ConverterGLTF::convert(char* output, char* inputDff, char* inputTxd)
 {
+    if (!inputDff || !inputTxd || !output)
+        return false;
+
     std::ifstream dff(inputDff, std::ios::binary);
     std::ifstream txd(inputTxd, std::ios::binary);
 
@@ -453,6 +456,9 @@ bool ConverterGLTF::convert(char* output, rw::Clump& dff)
 
 bool ConverterGLTF::convert(char* output, rw::Clump& dff, rw::TextureDictionary& txd)
 {
+    if (!output)
+        return false;
+
     if (dff.geometryList.size() <= 0)
         return false;
 

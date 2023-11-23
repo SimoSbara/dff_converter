@@ -4,3 +4,4 @@ output/*
 out/*
 build/*
 bin/*
+CMakeSettings.json
