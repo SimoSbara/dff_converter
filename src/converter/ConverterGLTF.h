@@ -28,19 +28,14 @@ private:
 
 	bool insertImageTexture(rw::NativeTexture* txdTex);
 
-	void resetModel()
-	{
-		materials.clear();
-		model = tinygltf::Model();
-		currentAccessor = 0;
-		currentBufView = 0;
-	}
+	void resetModel();
 
 public:
 	ConverterGLTF();
 
-	virtual bool convert(char* output, char* inputDff, char* inputTxd);
-	virtual bool convert(char* output, rw::Clump& dff, rw::TextureDictionary& txd);
-	virtual bool convert(char* output, rw::Clump& dff);
+	virtual bool convert(std::string output, std::string inputDff, std::string inputTxd);
+	virtual bool convert(std::string output, std::string inputDff);
+	virtual bool convert(std::string output, rw::Clump& dff, rw::TextureDictionary& txd);
+	virtual bool convert(std::string output, rw::Clump& dff);
 };
 

@@ -430,9 +430,24 @@ int ConverterGLTF::insertIndices(std::vector<BYTE>& buffer, rw::Split* split, in
     return bytesLength;
 }
 
-bool ConverterGLTF::convert(char* output, char* inputDff, char* inputTxd)
+bool ConverterGLTF::convert(std::string output, std::string inputDff)
 {
-    if (!inputDff || !inputTxd || !output)
+    if (inputDff.empty() || output.empty())
+        return false;
+
+    std::ifstream dff(inputDff, std::ios::binary);
+
+    rw::Clump dffStruct;
+    rw::TextureDictionary txdStruct; //empty
+
+    dffStruct.read(dff);
+
+    return convert(output, dffStruct, txdStruct);
+}
+
+bool ConverterGLTF::convert(std::string output, std::string inputDff, std::string inputTxd)
+{
+    if (inputDff.empty() || inputTxd.empty() || output.empty())
         return false;
 
     std::ifstream dff(inputDff, std::ios::binary);
@@ -447,16 +462,24 @@ bool ConverterGLTF::convert(char* output, char* inputDff, char* inputTxd)
     return convert(output, dffStruct, txdStruct);
 }
 
-bool ConverterGLTF::convert(char* output, rw::Clump& dff)
+void ConverterGLTF::resetModel()
+{
+    materials.clear();
+    model = tinygltf::Model();
+    currentAccessor = 0;
+    currentBufView = 0;
+}
+
+bool ConverterGLTF::convert(std::string output, rw::Clump& dff)
 {
     rw::TextureDictionary emptyTXD;
 
     return convert(output, dff, emptyTXD);
 }
 
-bool ConverterGLTF::convert(char* output, rw::Clump& dff, rw::TextureDictionary& txd)
+bool ConverterGLTF::convert(std::string output, rw::Clump& dff, rw::TextureDictionary& txd)
 {
-    if (!output)
+    if (output.empty())
         return false;
 
     if (dff.geometryList.size() <= 0)
@@ -474,7 +497,7 @@ bool ConverterGLTF::convert(char* output, rw::Clump& dff, rw::TextureDictionary&
     rw::Geometry* geometry = &dff.geometryList[0];
     rw::Frame* frame = &dff.frameList[0];
 
-    putRotationTranslation(frame, node);
+    //putRotationTranslation(frame, node); per errore
 
     node.mesh = 0;
     scene.nodes.push_back(0);

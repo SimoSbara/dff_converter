@@ -37,21 +37,12 @@ int main()
 
                 std::string baseFile = file.substr(basePath, fileLength - basePath - 4);
 
-                std::string d = inpDir + baseFile + ".dff";
-                std::string t = inpDir + baseFile + ".txd";
-
-                std::ifstream dff(inpDir + baseFile + ".dff", std::ios::binary);
-                std::ifstream txd(inpDir + baseFile + ".txd", std::ios::binary);
-
-                rw::Clump dffStruct;
-                rw::TextureDictionary txdStruct;
-
-                dffStruct.read(dff);
-                txdStruct.read(txd);
+                std::string dff = inpDir + baseFile + ".dff";
+                std::string txd = inpDir + baseFile + ".txd";
 
                 output = outDir + baseFile + ".gltf";
 
-                if(converter.convert((char*)output.c_str(), dffStruct, txdStruct))
+                if(converter.convert(output, dff, txd))
                     std::cout << baseFile << " converted" << std::endl;
                 else
                     std::cout << baseFile << " not converted!" << std::endl;
