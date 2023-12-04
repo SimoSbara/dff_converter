@@ -12,7 +12,7 @@ namespace rw {
 
 static uint32 index;
 
-void Geometry::readPs2NativeData(istream &rw)
+bool Geometry::readPs2NativeData(istream &rw)
 {
 	HeaderInfo header;
 
@@ -20,7 +20,7 @@ void Geometry::readPs2NativeData(istream &rw)
 
 	if (readUInt32(rw) != PLATFORM_PS2) {
 		cerr << "error: native data not in ps2 format\n";
-		return;
+		return false;
 	}
 
 	index = 0;
@@ -148,7 +148,7 @@ void Geometry::readPs2NativeData(istream &rw)
 }
 
 
-void Geometry::readData(uint32 vertexCount, uint32 type,
+bool Geometry::readData(uint32 vertexCount, uint32 type,
                         uint32 split, istream &rw)
 {
 	float32 vertexScale = (flags & FLAGS_PRELIT) ? VERTSCALE1 : VERTSCALE2;
@@ -292,6 +292,7 @@ void Geometry::readData(uint32 vertexCount, uint32 type,
 	default:
 		cout << "unknown data type: " << hex << type;
 		cout << " " << filename << " " << hex << rw.tellg() << endl;
+		return false;
 		break;
 	}
 

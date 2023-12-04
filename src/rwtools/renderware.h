@@ -13,14 +13,16 @@
 
 #ifdef _DEBUG
 	#define READ_HEADER(x)\
-	header.read(rw);\
+	if(!header.read(rw))\
+		return false;\
 	if (header.type != (x)) {\
-		cerr << filename << " ";\
 		ChunkNotFound((x), rw.tellg());\
+		return false;\
 	}
 #else
 	#define READ_HEADER(x)\
-	header.read(rw);
+	if(!header.read(rw))\
+		return false;
 #endif
 
 namespace rw {
@@ -241,7 +243,7 @@ struct Frame
 
 	/* functions */
 	void readStruct(std::istream &dff);
-	void readExtension(std::istream &dff);
+	bool readExtension(std::istream &dff);
 	uint32 writeStruct(std::ostream &dff);
 	uint32 writeExtension(std::ostream &dff);
 
@@ -276,8 +278,8 @@ struct Atomic
 	uint32 materialFxVal;
 
 	/* functions */
-	void read(std::istream &dff);
-	void readExtension(std::istream &dff);
+	bool read(std::istream &dff);
+	bool readExtension(std::istream &dff);
 	uint32 write(std::ostream &dff);
 	void dump(uint32 index, std::string ind = "");
 
@@ -296,9 +298,9 @@ struct Texture
 	bool hasSkyMipmap;
 
 	/* functions */
-	void read(std::istream &dff);
+	bool read(std::istream &dff);
 	uint32 write(std::ostream &dff);
-	void readExtension(std::istream &dff);
+	bool readExtension(std::istream &dff);
 	void dump(std::string ind = "");
 
 	Texture(void);
@@ -362,8 +364,8 @@ struct Material
 	std::string uvName;
 
 	/* functions */
-	void read(std::istream &dff);
-	void readExtension(std::istream &dff);
+	bool read(std::istream &dff);
+	bool readExtension(std::istream &dff);
 	uint32 write(std::ostream &dff);
 
 	void dump(uint32 index, std::string ind = "");
@@ -450,9 +452,9 @@ struct Geometry
 	bool hasMorph;
 
 	/* functions */
-	void read(std::istream &dff);
-	void readExtension(std::istream &dff);
-	void readMeshExtension(std::istream &dff);
+	bool read(std::istream &dff);
+	bool readExtension(std::istream &dff);
+	bool readMeshExtension(std::istream &dff);
 	uint32 write(std::ostream &dff);
 	uint32 writeMeshExtension(std::ostream &dff);
 
@@ -465,15 +467,15 @@ struct Geometry
 	Geometry &operator= (const Geometry &other);
 	~Geometry(void);
 private:
-	void readPs2NativeData(std::istream &dff);
-	void readXboxNativeData(std::istream &dff);
-	void readXboxNativeSkin(std::istream &dff);
-	void readOglNativeData(std::istream &dff, int size);
-	void readNativeSkinMatrices(std::istream &dff);
+	bool readPs2NativeData(std::istream &dff);
+	bool readXboxNativeData(std::istream &dff);
+	bool readXboxNativeSkin(std::istream &dff);
+	bool readOglNativeData(std::istream &dff, int size);
+	bool readNativeSkinMatrices(std::istream &dff);
 	bool isDegenerateFace(uint32 i, uint32 j, uint32 k);
 	void generateFaces(void);
 	void deleteOverlapping(std::vector<uint32> &typesRead, uint32 split);
-	void readData(uint32 vertexCount, uint32 type, // native data block
+	bool readData(uint32 vertexCount, uint32 type, // native data block
                       uint32 split, std::istream &dff);
 
 	uint32 addTempVertexIfNew(uint32 index);
@@ -488,7 +490,7 @@ struct Light
 	uint32 type;
 	uint32 flags;
 
-	void read(std::istream &dff);
+	bool read(std::istream &dff);
 	uint32 write(std::ostream &dff);
 };
 
@@ -505,8 +507,8 @@ struct Clump
 	std::vector<uint8> colData;
 
 	/* functions */
-	void read(std::istream &dff);
-	void readExtension(std::istream &dff);
+	bool read(std::istream &dff);
+	bool readExtension(std::istream &dff);
 	uint32 write(std::ostream &dff);
 	void dump(bool detailed = false);
 	void clear(void);
@@ -547,9 +549,9 @@ struct NativeTexture
 	uint32 dxtCompression;
 
 	/* functions */
-	void readD3d(std::istream &txd);
-	void readPs2(std::istream &txd);
-	void readXbox(std::istream &txd);
+	bool readD3d(std::istream &txd);
+	bool readPs2(std::istream &txd);
+	bool readXbox(std::istream &txd);
 	uint32 writeD3d(std::ostream &txd);
 	void writeTGA(void);
 
@@ -573,7 +575,7 @@ struct TextureDictionary
 	std::vector<NativeTexture> texList;
 
 	/* functions */
-	void read(std::istream &txd);
+	bool read(std::istream &txd);
 	uint32 write(std::ostream &txd);
 	void clear(void);
 	~TextureDictionary(void);
@@ -583,7 +585,7 @@ struct UVAnimation
 {
 	std::vector<uint8> data;
 
-	void read(std::istream &dff);
+	bool read(std::istream &dff);
 	uint32 write(std::ostream &dff);
 };
 
@@ -591,7 +593,7 @@ struct UVAnimDict
 {
 	std::vector<UVAnimation> animList;
 
-	void read(std::istream &dff);
+	bool read(std::istream &dff);
 	uint32 write(std::ostream &dff);
 	void clear(void);
 	~UVAnimDict(void);

@@ -62,7 +62,7 @@ ChunkNotFound(CHUNK_TYPE chunk, uint32 address)
 {
 	cerr << "chunk " << hex << chunk << " not found at 0x";
 	cerr << hex << address << endl;
-	exit(1);
+	//exit(1);
 }
 
 uint32

@@ -26,26 +26,37 @@ int main()
 
     try
     {
+        std::string baseFile;
+
         for (auto& p : std::filesystem::recursive_directory_iterator(inpDir))
         {
-            std::string file = p.path().generic_string();
-
-            if (p.path().extension().generic_string() == ext)
+            try
             {
-                int basePath = p.path().parent_path().generic_string().length();
-                int fileLength = file.length();
+                std::string file = p.path().generic_string();
 
-                std::string baseFile = file.substr(basePath, fileLength - basePath - 4);
+                if (p.path().extension().generic_string() == ext)
+                {
+                    int basePath = p.path().parent_path().generic_string().length();
+                    int fileLength = file.length();
 
-                std::string dff = inpDir + baseFile + ".dff";
-                std::string txd = inpDir + baseFile + ".txd";
+                    baseFile = file.substr(basePath, fileLength - basePath - 4);
 
-                output = outDir + baseFile + ".gltf";
+                    std::string dff = inpDir + baseFile + ".dff";
+                    std::string txd = inpDir + baseFile + ".txd";
 
-                if(converter.convert(output, dff, txd))
-                    std::cout << baseFile << " converted" << std::endl;
-                else
-                    std::cout << baseFile << " not converted!" << std::endl;
+                    output = outDir + baseFile + ".gltf";
+
+                    if(converter.convert(output, dff, txd))
+                        std::cout << baseFile << " converted" << std::endl;
+                    else
+                        std::cout << baseFile << " not converted!" << std::endl;
+                }
+            }
+            catch (std::exception e)
+            {
+                std::cout << e.what() << std::endl;
+                std::cout << baseFile << " not converted!" << std::endl;
+                continue;
             }
         }
     }

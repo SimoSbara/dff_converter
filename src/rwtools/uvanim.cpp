@@ -18,7 +18,7 @@ namespace rw {
 	writtenBytesReturn = bytesWritten;\
 	rw.seekp(oldPos, ios::beg);
 
-void
+bool
 UVAnimation::read(istream &rw)
 {
 	HeaderInfo header;
@@ -41,8 +41,7 @@ UVAnimation::write(ostream &rw)
 	return bytesWritten;
 }
 
-void
-UVAnimDict::read(istream &rw)
+bool UVAnimDict::read(istream &rw)
 {
 	HeaderInfo header;
 	uint32 end;

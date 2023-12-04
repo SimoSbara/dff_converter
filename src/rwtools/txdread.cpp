@@ -15,13 +15,13 @@ static void unswizzle8(uint8 *texels, uint8 *rawIndices,
  * Texture Dictionary
  */
 
-void TextureDictionary::read(istream &rw)
+bool TextureDictionary::read(istream &rw)
 {
 	HeaderInfo header;
 
 	header.read(rw);
 	if (header.type != CHUNK_TEXDICTIONARY)
-		return;
+		return false;
 
 	READ_HEADER(CHUNK_STRUCT);
 	uint32 textureCount = readUInt16(rw);
@@ -59,6 +59,8 @@ void TextureDictionary::read(istream &rw)
 			}
 		}
 	}
+
+	return true;
 }
 
 void TextureDictionary::clear(void)
@@ -75,7 +77,7 @@ TextureDictionary::~TextureDictionary(void)
  * Native Texture
  */
 
-void NativeTexture::readD3d(istream &rw)
+bool NativeTexture::readD3d(istream &rw)
 {
 	HeaderInfo header;
 
@@ -86,7 +88,7 @@ void NativeTexture::readD3d(istream &rw)
 	uint32 platform = readUInt32(rw);
 	// improve error handling
 	if (platform != PLATFORM_D3D8 && platform != PLATFORM_D3D9)
-		return;
+		return false;
 
 	filterFlags = readUInt32(rw);
 
@@ -162,9 +164,11 @@ void NativeTexture::readD3d(istream &rw)
 		        dataSize*sizeof(uint8));
 	}
 //cout << endl;
+
+	return true;
 }
 
-void NativeTexture::readXbox(istream &rw)
+bool NativeTexture::readXbox(istream &rw)
 {
 	HeaderInfo header;
 
@@ -175,7 +179,7 @@ void NativeTexture::readXbox(istream &rw)
 	uint32 platform = readUInt32(rw);
 	// improve error handling
 	if (platform != PLATFORM_XBOX)
-		return;
+		return false;
 
 	filterFlags = readUInt32(rw);
 
@@ -228,6 +232,8 @@ void NativeTexture::readXbox(istream &rw)
 		rw.read(reinterpret_cast <char *> (&texels[i][0]),
 			dataSizes[i]*sizeof(uint8));
 	}
+
+	return true;
 }
 
 void unswizzleXboxBlock(uint8 *out, uint8 *in, uint32 &outOff, uint32 inOff,
@@ -274,7 +280,7 @@ void NativeTexture::convertFromXbox(void)
 	platform = PLATFORM_D3D8;
 }
 
-void NativeTexture::readPs2(istream &rw)
+bool NativeTexture::readPs2(istream &rw)
 {
 	HeaderInfo header;
 
@@ -282,7 +288,7 @@ void NativeTexture::readPs2(istream &rw)
 	uint32 platform = readUInt32(rw);
 	// improve error handling
 	if (platform != PLATFORM_PS2FOURCC)
-		return;
+		return false;
 
 	paletteSize = 0;
 	filterFlags = readUInt32(rw);
@@ -417,6 +423,8 @@ void NativeTexture::readPs2(istream &rw)
 		rasterFormat |= RASTER_888;
 	}
 //cout << hex << rasterFormat << " " << hasAlpha << endl;
+
+	return true;
 }
 
 void NativeTexture::convertTo32Bit(void)

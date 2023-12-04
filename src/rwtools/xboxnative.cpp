@@ -7,7 +7,7 @@ using namespace std;
 
 namespace rw {
 
-void Geometry::readXboxNativeSkin(istream &rw)
+bool Geometry::readXboxNativeSkin(istream &rw)
 {
 	HeaderInfo header;
 
@@ -15,7 +15,7 @@ void Geometry::readXboxNativeSkin(istream &rw)
 
 	if (readUInt32(rw) != PLATFORM_XBOX) {
 		cerr << "error: native data not in xbox format\n";
-		return;
+		return false;
 	}
 
 	// don't know if correct
@@ -70,7 +70,7 @@ void Geometry::readXboxNativeSkin(istream &rw)
 		        0x10*sizeof(float32));
 }
 
-void Geometry::readXboxNativeData(istream &rw)
+bool Geometry::readXboxNativeData(istream &rw)
 {
 	HeaderInfo header;
 
@@ -78,7 +78,7 @@ void Geometry::readXboxNativeData(istream &rw)
 
 	if (readUInt32(rw) != PLATFORM_XBOX) {
 		cerr << "error: native data not in xbox format\n";
-		return;
+		return false;
 	}
 
 	uint32 vertexPosition = rw.tellg();

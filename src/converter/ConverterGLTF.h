@@ -30,12 +30,13 @@ private:
 
 	void resetModel();
 
+	virtual bool convert(std::string output, rw::Clump& dff, rw::TextureDictionary& txd);
+
 public:
 	ConverterGLTF();
 
 	virtual bool convert(std::string output, std::string inputDff, std::string inputTxd);
 	virtual bool convert(std::string output, std::string inputDff);
-	virtual bool convert(std::string output, rw::Clump& dff, rw::TextureDictionary& txd);
-	virtual bool convert(std::string output, rw::Clump& dff);
+
 };
 

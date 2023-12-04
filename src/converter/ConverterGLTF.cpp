@@ -440,7 +440,15 @@ bool ConverterGLTF::convert(std::string output, std::string inputDff)
     rw::Clump dffStruct;
     rw::TextureDictionary txdStruct; //empty
 
-    dffStruct.read(dff);
+    try
+    {
+        if (!dffStruct.read(dff))
+            return false;
+    }
+    catch (std::exception e)
+    {
+        return false;
+    }
 
     return convert(output, dffStruct, txdStruct);
 }
@@ -456,8 +464,17 @@ bool ConverterGLTF::convert(std::string output, std::string inputDff, std::strin
     rw::Clump dffStruct;
     rw::TextureDictionary txdStruct;
 
-    dffStruct.read(dff);
-    txdStruct.read(txd);
+    try
+    {
+        txdStruct.read(txd); //non essenziale
+
+        if (!dffStruct.read(dff))
+            return false;
+    }
+    catch (std::exception e)
+    {
+        return false;
+    }
 
     return convert(output, dffStruct, txdStruct);
 }
@@ -468,13 +485,6 @@ void ConverterGLTF::resetModel()
     model = tinygltf::Model();
     currentAccessor = 0;
     currentBufView = 0;
-}
-
-bool ConverterGLTF::convert(std::string output, rw::Clump& dff)
-{
-    rw::TextureDictionary emptyTXD;
-
-    return convert(output, dff, emptyTXD);
 }
 
 bool ConverterGLTF::convert(std::string output, rw::Clump& dff, rw::TextureDictionary& txd)

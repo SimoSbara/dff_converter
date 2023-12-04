@@ -11,7 +11,7 @@ char *filename;
  * Clump
  */
 
-void Clump::read(istream& rw)
+bool Clump::read(istream& rw)
 {
 	HeaderInfo header;
 
@@ -57,10 +57,10 @@ void Clump::read(istream& rw)
 	}
 	hasCollision = false;
 
-	readExtension(rw);
+	return readExtension(rw);
 }
 
-void Clump::readExtension(istream &rw)
+bool Clump::readExtension(istream &rw)
 {
 	HeaderInfo header;
 
@@ -82,6 +82,8 @@ void Clump::readExtension(istream &rw)
 			break;
 		}
 	}
+
+	return true;
 }
 
 void Clump::dump(bool detailed)
@@ -124,8 +126,7 @@ void Clump::clear(void)
 	colData.clear();
 }
 
-void
-Light::read(std::istream &rw)
+bool Light::read(std::istream &rw)
 {
 	HeaderInfo header;
 
@@ -145,7 +146,7 @@ Light::read(std::istream &rw)
  * Atomic
  */
 
-void Atomic::read(istream &rw)
+bool Atomic::read(istream &rw)
 {
 	HeaderInfo header;
 
@@ -159,7 +160,7 @@ void Atomic::read(istream &rw)
 	readExtension(rw);
 }
 
-void Atomic::readExtension(istream &rw)
+bool Atomic::readExtension(istream &rw)
 {
 	HeaderInfo header;
 
@@ -248,7 +249,7 @@ void Frame::readStruct(istream &rw)
 	rw.seekg(4, ios::cur);	// matrix creation flag, unused
 }
 
-void Frame::readExtension(istream &rw)
+bool Frame::readExtension(istream &rw)
 {
 	HeaderInfo header;
 
@@ -294,6 +295,8 @@ void Frame::readExtension(istream &rw)
 	}
 //	if(hasHAnim)
 //		cout << hAnimBoneId << " " << name << endl;
+
+	return true;
 }
 
 void Frame::dump(uint32 index, string ind)
@@ -335,7 +338,7 @@ Frame::Frame(void)
  * Geometry
  */
 
-void Geometry::read(istream &rw)
+bool Geometry::read(istream &rw)
 {
 	HeaderInfo header;
 
@@ -408,7 +411,7 @@ void Geometry::read(istream &rw)
 	readExtension(rw);
 }
 
-void
+bool
 Geometry::readExtension(istream &rw)
 {
 	HeaderInfo header;
@@ -561,7 +564,7 @@ Geometry::readExtension(istream &rw)
 	}
 }
 
-void Geometry::readNativeSkinMatrices(istream &rw)
+bool Geometry::readNativeSkinMatrices(istream &rw)
 {
 	HeaderInfo header;
 
@@ -570,7 +573,7 @@ void Geometry::readNativeSkinMatrices(istream &rw)
 	uint32 platform = readUInt32(rw);
 	if (platform != PLATFORM_PS2 && platform != PLATFORM_OGL) {
 		cerr << "error: native skin not in ps2 or ogl format\n";
-		return;
+		return false;
 	}
 
 	boneCount = readUInt8(rw);
@@ -592,10 +595,10 @@ void Geometry::readNativeSkinMatrices(istream &rw)
 		rw.seekg(0x1C, ios::cur);
 }
 
-void Geometry::readMeshExtension(istream &rw)
+bool Geometry::readMeshExtension(istream &rw)
 {
 	if (meshExtension->unknown == 0)
-		return;
+		return false;
 	rw.seekg(0x4, ios::cur);
 	uint32 vertexCount = readUInt32(rw);
 	rw.seekg(0xC, ios::cur);
@@ -641,6 +644,8 @@ void Geometry::readMeshExtension(istream &rw)
 		meshExtension->unknowns.push_back(readFloat32(rw));
 		meshExtension->unknowns.push_back(readFloat32(rw));
 	}
+
+	return true;
 }
 
 bool Geometry::isDegenerateFace(uint32 i, uint32 j, uint32 k)
@@ -1077,7 +1082,7 @@ Geometry::~Geometry(void)
  * Material
  */
 
-void Material::read(istream &rw)
+bool Material::read(istream &rw)
 {
 	HeaderInfo header;
 
@@ -1093,10 +1098,10 @@ void Material::read(istream &rw)
 	if (hasTex)
 		texture.read(rw);
 
-	readExtension(rw);
+	return readExtension(rw);
 }
 
-void Material::readExtension(istream &rw)
+bool Material::readExtension(istream &rw)
 {
 	HeaderInfo header;
 	char buf[32];
@@ -1405,7 +1410,7 @@ MatFx::MatFx(void)
  * Texture
  */
 
-void Texture::read(istream &rw)
+bool Texture::read(istream &rw)
 {
 	HeaderInfo header;
 
@@ -1432,7 +1437,7 @@ void Texture::read(istream &rw)
 	readExtension(rw);
 }
 
-void Texture::readExtension(istream &rw)
+bool Texture::readExtension(istream &rw)
 {
 	HeaderInfo header;
 
