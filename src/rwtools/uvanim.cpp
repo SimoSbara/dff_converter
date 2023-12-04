@@ -25,6 +25,8 @@ UVAnimation::read(istream &rw)
 	READ_HEADER(CHUNK_ANIMANIMATION);
 	data.resize(header.length);
 	rw.read((char*)&data[0], header.length);
+
+	return true;
 }
 
 uint32
@@ -54,6 +56,8 @@ bool UVAnimDict::read(istream &rw)
 	animList.resize(n);
 	for(uint32 i = 0; i < n; i++)
 		animList[i].read(rw);
+
+	return true;
 }
 
 uint32

@@ -140,6 +140,8 @@ bool Light::read(std::istream &rw)
 	type = readUInt16(rw);
 	READ_HEADER(CHUNK_EXTENSION);
 	rw.seekg(header.length, ios::cur);
+
+	return true;
 }
 
 /*
@@ -157,7 +159,7 @@ bool Atomic::read(istream &rw)
 	geometryIndex = readUInt32(rw);
 	rw.seekg(8, ios::cur);	// constant
 
-	readExtension(rw);
+	return readExtension(rw);
 }
 
 bool Atomic::readExtension(istream &rw)
@@ -196,6 +198,8 @@ bool Atomic::readExtension(istream &rw)
 			break;
 		}
 	}
+
+	return true;
 }
 
 void Atomic::dump(uint32 index, string ind)
@@ -408,7 +412,7 @@ bool Geometry::read(istream &rw)
 	for (uint32 i = 0; i < numMaterials; i++)
 		materialList[i].read(rw);
 
-	readExtension(rw);
+	return readExtension(rw);
 }
 
 bool
@@ -562,6 +566,8 @@ Geometry::readExtension(istream &rw)
 			break;
 		}
 	}
+
+	return true;
 }
 
 bool Geometry::readNativeSkinMatrices(istream &rw)
@@ -593,6 +599,8 @@ bool Geometry::readNativeSkinMatrices(istream &rw)
 	// skip unknowns
 	if (specialIndexCount != 0)
 		rw.seekg(0x1C, ios::cur);
+
+	return true;
 }
 
 bool Geometry::readMeshExtension(istream &rw)
@@ -1228,6 +1236,8 @@ bool Material::readExtension(istream &rw)
 			break;
 		}
 	}
+
+	return true;
 }
 
 void Material::dump(uint32 index, string ind)
@@ -1434,7 +1444,7 @@ bool Texture::read(istream &rw)
 	maskName = buffer;
 	delete[] buffer;
 
-	readExtension(rw);
+	return readExtension(rw);
 }
 
 bool Texture::readExtension(istream &rw)
@@ -1458,6 +1468,8 @@ bool Texture::readExtension(istream &rw)
 			break;
 		}
 	}
+
+	return true;
 }
 
 void Texture::dump(std::string ind)

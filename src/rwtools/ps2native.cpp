@@ -145,6 +145,8 @@ bool Geometry::readPs2NativeData(istream &rw)
 			if(texCoords[i].size() == 0)
 				texCoords[i].resize(nverts*2);
 */
+
+	return true;
 }
 
 
@@ -299,6 +301,8 @@ bool Geometry::readData(uint32 vertexCount, uint32 type,
 	/* skip padding */
 	if (vertexCount*size & 0xF)
 		rw.seekg(0x10 - (vertexCount*size & 0xF), ios::cur);
+
+	return true;
 }
 
 void Geometry::deleteOverlapping(vector<uint32> &typesRead, uint32 split)

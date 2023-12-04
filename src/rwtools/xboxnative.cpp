@@ -68,6 +68,8 @@ bool Geometry::readXboxNativeSkin(istream &rw)
 	for (uint32 i = 0; i < boneCount; i++)
 		rw.read((char *) (&inverseMatrices[i*0x10]),
 		        0x10*sizeof(float32));
+
+	return true;
 }
 
 bool Geometry::readXboxNativeData(istream &rw)
@@ -175,6 +177,8 @@ bool Geometry::readXboxNativeData(istream &rw)
 			normals[i*3+2] = readFloat32(rw);
 		}
 	}
+
+	return true;
 }
 
 }
