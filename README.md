@@ -10,7 +10,7 @@ It can convert to:
 
 Libraries used:
 * [LodePNG](https://github.com/lvandeve/lodepng) for png encoding/decoding;
-* [RWTools](https://github.com/aap/rwtools) for renderware DFF and TXD encoding/decoding;
+* **Edited** [RWTools](https://github.com/aap/rwtools) for renderware DFF and TXD encoding/decoding;
 * [TinyGLTF](https://github.com/syoyo/tinygltf) for writing/reading a GLTF model.
 
 ## Before build
