@@ -1,7 +1,7 @@
 #include <cstring>
 #include <cstdlib>
 #include <fstream>
-#include <renderware.h>
+#include <rwtools.h>
 
 using namespace std;
 

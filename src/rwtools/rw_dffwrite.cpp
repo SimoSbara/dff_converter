@@ -2,7 +2,7 @@
 
 #define _CRT_SECURE_NO_WARNINGS 1
 
-#include <renderware.h>
+#include <rwtools.h>
 using namespace std;
 
 namespace rw {

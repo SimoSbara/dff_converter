@@ -1,6 +1,6 @@
 #include <cstdlib>
 
-#include <renderware.h>
+#include <rwtools.h>
 using namespace std;
 
 namespace rw {

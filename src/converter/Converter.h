@@ -1,6 +1,6 @@
 #pragma once
 
-#include <renderware.h>
+#include <rwtools.h>
 
 #ifndef WIN32
 	typedef unsigned char BYTE;
