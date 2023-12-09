@@ -22,8 +22,8 @@ add_library(dff_converter_static STATIC
 
 add_executable(dff_conv ${SOURCE_FILES})
 
-set_target_properties(dff_converter PROPERTIES PUBLIC_HEADER "${CMAKE_INSTALL_PREFIX}/externals/tinygltf/tiny_gltf.h;converter/Converter.h;converter/ConverterGLTF.h;rwtools/renderware.h")
-set_target_properties(dff_converter_static PROPERTIES PUBLIC_HEADER "${CMAKE_INSTALL_PREFIX}/externals/tinygltf/tiny_gltf.h;converter/Converter.h;converter/ConverterGLTF.h;rwtools/renderware.h")
+set_target_properties(dff_converter PROPERTIES PUBLIC_HEADER "${CMAKE_INSTALL_PREFIX}/externals/tinygltf/tiny_gltf.h;converter/Converter.h;converter/ConverterGLTF.h;rwtools/rwtools.h")
+set_target_properties(dff_converter_static PROPERTIES PUBLIC_HEADER "${CMAKE_INSTALL_PREFIX}/externals/tinygltf/tiny_gltf.h;converter/Converter.h;converter/ConverterGLTF.h;rwtools/rwtools.h")
 
 
 target_link_libraries(dff_conv dff_converter)
