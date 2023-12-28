@@ -38,7 +38,7 @@ int ConverterGLTF::putValue(std::vector<BYTE>& buffer, T val)
     return sizeof(T);
 }
 
-bool ConverterGLTF::insertImageTexture(rw::NativeTexture* txdTex)
+bool ConverterGLTF::insertImageTexture(rwtools::NativeTexture* txdTex)
 {
     tinygltf::Image imageTexture;
 
@@ -102,7 +102,7 @@ bool ConverterGLTF::insertImageTexture(rw::NativeTexture* txdTex)
     return true;
 }
 
-void ConverterGLTF::putRotationTranslation(rw::Frame* frame, tinygltf::Node& node)
+void ConverterGLTF::putRotationTranslation(rwtools::Frame* frame, tinygltf::Node& node)
 {
     //devo convertire la matrice 3x3 in quaternione
     float* mat = frame->rotationMatrix;
@@ -145,7 +145,7 @@ void ConverterGLTF::InsertAccBufView(int byteOffset, int byteLength, int target,
     currentBufView++;
 }
 
-int ConverterGLTF::insertInverseMatBones(std::vector<BYTE>& buffer, tinygltf::Skin& skin, rw::Geometry* geometry, int bytesOffset)
+int ConverterGLTF::insertInverseMatBones(std::vector<BYTE>& buffer, tinygltf::Skin& skin, rwtools::Geometry* geometry, int bytesOffset)
 {
     int bytesLength = 0;
 
@@ -176,7 +176,7 @@ int ConverterGLTF::insertInverseMatBones(std::vector<BYTE>& buffer, tinygltf::Sk
     return bytesLength;
 }
 
-int ConverterGLTF::insertBones(std::vector<BYTE>& buffer, tinygltf::Mesh& mesh, rw::Geometry* geometry, int bytesOffset)
+int ConverterGLTF::insertBones(std::vector<BYTE>& buffer, tinygltf::Mesh& mesh, rwtools::Geometry* geometry, int bytesOffset)
 {
     int bytesLength = 0;
     int bytesInds = 0;
@@ -288,7 +288,7 @@ int ConverterGLTF::insertBones(std::vector<BYTE>& buffer, tinygltf::Mesh& mesh, 
     return bytesLength;
 }
 
-int ConverterGLTF::insertUVTexture(std::vector<BYTE>& buffer, std::vector<USHORT>& indeces, rw::Geometry* geometry, int bytesOffset)
+int ConverterGLTF::insertUVTexture(std::vector<BYTE>& buffer, std::vector<USHORT>& indeces, rwtools::Geometry* geometry, int bytesOffset)
 {
     int bytesLength = 0;
     int numCoords = 0;
@@ -321,7 +321,7 @@ int ConverterGLTF::insertUVTexture(std::vector<BYTE>& buffer, std::vector<USHORT
     return bytesLength;
 }
 
-int ConverterGLTF::insertNormals(std::vector<BYTE>& buffer, std::vector<USHORT>& indeces, rw::Geometry* geometry, int bytesOffset)
+int ConverterGLTF::insertNormals(std::vector<BYTE>& buffer, std::vector<USHORT>& indeces, rwtools::Geometry* geometry, int bytesOffset)
 {
     int bytesLength = 0;
 
@@ -365,7 +365,7 @@ int ConverterGLTF::insertNormals(std::vector<BYTE>& buffer, std::vector<USHORT>&
     return bytesLength;
 }
 
-int ConverterGLTF::insertVertices(std::vector<BYTE>& buffer, std::vector<USHORT> &indeces, rw::Geometry* geometry, int bytesOffset)
+int ConverterGLTF::insertVertices(std::vector<BYTE>& buffer, std::vector<USHORT> &indeces, rwtools::Geometry* geometry, int bytesOffset)
 {
     float minX = FLT_MAX;
     float maxX = FLT_MIN;
@@ -405,7 +405,7 @@ int ConverterGLTF::insertVertices(std::vector<BYTE>& buffer, std::vector<USHORT>
     return bytesLength;
 }
 
-int ConverterGLTF::insertIndices(std::vector<BYTE>& buffer, rw::Split* split, int bytesOffset)
+int ConverterGLTF::insertIndices(std::vector<BYTE>& buffer, rwtools::Split* split, int bytesOffset)
 {
     USHORT maxVertIndex = 0;
     USHORT minVertIndex = USHRT_MAX;
@@ -449,8 +449,8 @@ bool ConverterGLTF::convert(std::string output, std::string inputDff)
 
     std::ifstream dff(inputDff, std::ios::binary);
 
-    rw::Clump dffStruct;
-    rw::TextureDictionary txdStruct; //empty
+    rwtools::Clump dffStruct;
+    rwtools::TextureDictionary txdStruct; //empty
 
     try
     {
@@ -473,8 +473,8 @@ bool ConverterGLTF::convert(std::string output, std::string inputDff, std::strin
     std::ifstream dff(inputDff, std::ios::binary);
     std::ifstream txd(inputTxd, std::ios::binary);
 
-    rw::Clump dffStruct;
-    rw::TextureDictionary txdStruct;
+    rwtools::Clump dffStruct;
+    rwtools::TextureDictionary txdStruct;
 
     try
     {
@@ -483,7 +483,7 @@ bool ConverterGLTF::convert(std::string output, std::string inputDff, std::strin
             if (!ignoreCorruptedTXD)
                 return false;
             else
-                txdStruct = rw::TextureDictionary(); //vuota
+                txdStruct = rwtools::TextureDictionary(); //vuota
         }
 
 
@@ -506,7 +506,7 @@ void ConverterGLTF::resetModel()
     currentBufView = 0;
 }
 
-bool ConverterGLTF::convert(std::string output, rw::Clump& dff, rw::TextureDictionary& txd)
+bool ConverterGLTF::convert(std::string output, rwtools::Clump& dff, rwtools::TextureDictionary& txd)
 {
     if (output.empty())
         return false;
@@ -523,8 +523,8 @@ bool ConverterGLTF::convert(std::string output, rw::Clump& dff, rw::TextureDicti
     tinygltf::Buffer buffer;
     tinygltf::Asset asset;
     std::vector<USHORT> indeces;
-    rw::Geometry* geometry = &dff.geometryList[0];
-    rw::Frame* frame = &dff.frameList[0];
+    rwtools::Geometry* geometry = &dff.geometryList[0];
+    rwtools::Frame* frame = &dff.frameList[0];
 
     putRotationTranslation(frame, node);
 
@@ -547,7 +547,7 @@ bool ConverterGLTF::convert(std::string output, rw::Clump& dff, rw::TextureDicti
     //TEXTURES
     for (int i = 0; i < txd.texList.size(); i++)
     {
-        rw::NativeTexture* txdTex = &txd.texList[i];
+        rwtools::NativeTexture* txdTex = &txd.texList[i];
         tinygltf::Texture texture;
         tinygltf::Material mat;
         tinygltf::Sampler sampler;

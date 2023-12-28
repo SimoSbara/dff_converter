@@ -3,9 +3,6 @@
 #include <sstream>
 #include <fstream>
 
-#include <renderware.h>
-
-
 #include "ConverterGLTF.h"
 #include "util.h"
 

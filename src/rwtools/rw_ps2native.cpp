@@ -3,7 +3,7 @@
 #include <rwtools.h>
 using namespace std;
 
-namespace rw {
+namespace rwtools {
 
 #define NORMALSCALE (1.0/128.0)
 #define	VERTSCALE1 (1.0/128.0)	/* normally used */

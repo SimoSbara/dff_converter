@@ -25,7 +25,7 @@
 		return false;
 #endif
 
-namespace rw {
+namespace rwtools {
 
 //typedef unsigned int uint;
 typedef char int8;

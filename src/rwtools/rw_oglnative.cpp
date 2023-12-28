@@ -4,7 +4,7 @@
 
 using namespace std;
 
-namespace rw {
+namespace rwtools {
 
 static void
 convertattrib(float *dst, char *data, int type, int normalized, int n)

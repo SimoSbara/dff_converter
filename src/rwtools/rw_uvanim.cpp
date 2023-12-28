@@ -1,7 +1,7 @@
 #include <rwtools.h>
 using namespace std;
 
-namespace rw {
+namespace rwtools {
 
 /* You can write ONE header per C BLOCk using these macros */
 #define SKIP_HEADER()\

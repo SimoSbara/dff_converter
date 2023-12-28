@@ -5,7 +5,7 @@
 
 using namespace std;
 
-namespace rw {
+namespace rwtools {
 
 static void unclut(uint8 *texels, uint32 width, uint32 height);
 static void unswizzle8(uint8 *texels, uint8 *rawIndices,

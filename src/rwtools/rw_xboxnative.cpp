@@ -5,7 +5,7 @@
 
 using namespace std;
 
-namespace rw {
+namespace rwtools {
 
 bool Geometry::readXboxNativeSkin(istream &rw)
 {

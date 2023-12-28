@@ -3,7 +3,7 @@
 #include <rwtools.h>
 using namespace std;
 
-namespace rw {
+namespace rwtools {
 
 bool
 HeaderInfo::read(istream &rw)

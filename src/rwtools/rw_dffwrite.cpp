@@ -5,7 +5,7 @@
 #include <rwtools.h>
 using namespace std;
 
-namespace rw {
+namespace rwtools {
 
 uint32 version;
 

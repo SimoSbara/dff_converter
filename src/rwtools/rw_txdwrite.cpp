@@ -4,7 +4,7 @@
 
 using namespace std;
 
-namespace rw {
+namespace rwtools {
 
 /* You can write ONE header per C BLOCK using these macros */
 #define SKIP_HEADER()\
