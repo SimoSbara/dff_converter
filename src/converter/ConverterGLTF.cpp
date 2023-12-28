@@ -12,6 +12,14 @@ ConverterGLTF::ConverterGLTF()
 {
     currentAccessor = 0;
     currentBufView = 0;
+
+    rx = 0;
+    ry = 0;
+    rz = 0;
+
+    tx = 0;
+    ty = 0;
+    tz = 0;
 }
 
 template<class T>
@@ -101,11 +109,15 @@ void ConverterGLTF::putRotationTranslation(rw::Frame* frame, tinygltf::Node& nod
     float* pos = frame->position;
     float qw, qx, qy, qz;
 
-    convertMat3x3ToQuaternion(mat, qx, qy, qz, qw);
-    convertEulerToQuaternion(90, 90, 0, qx, qy, qz, qw);
+    if (rx != 0 || ry != 0 || rz != 0)
+    {
+        convertMat3x3ToQuaternion(mat, qx, qy, qz, qw);
+        convertEulerToQuaternion(rx, ry, rz, qx, qy, qz, qw);
 
-    node.rotation = { qx, qy, qz, qw };
-    node.translation = { pos[0], pos[1], pos[2] };
+        node.rotation = { qx, qy, qz, qw };
+    }
+
+    node.translation = { pos[0] + tx, pos[1] + ty, pos[2] + tz };
 }
 
 void ConverterGLTF::InsertAccBufView(int byteOffset, int byteLength, int target, int componentType, int count, int type, std::vector<double> min, std::vector<double> max)
@@ -507,7 +519,7 @@ bool ConverterGLTF::convert(std::string output, rw::Clump& dff, rw::TextureDicti
     rw::Geometry* geometry = &dff.geometryList[0];
     rw::Frame* frame = &dff.frameList[0];
 
-    //putRotationTranslation(frame, node); per errore
+    putRotationTranslation(frame, node);
 
     node.mesh = 0;
     scene.nodes.push_back(0);

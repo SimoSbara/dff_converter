@@ -35,6 +35,20 @@ private:
 public:
 	ConverterGLTF();
 
+	virtual void setRotation(double rx, double ry, double rz)
+	{
+		this->rx = rx;
+		this->ry = ry;
+		this->rz = rz;
+	}
+
+	virtual void setTranslation(double tx, double ty, double tz)
+	{
+		this->tx = tx;
+		this->ty = ty;
+		this->tz = tz;
+	}
+
 	virtual bool convert(std::string output, std::string inputDff, std::string inputTxd);
 	virtual bool convert(std::string output, std::string inputDff);
 
