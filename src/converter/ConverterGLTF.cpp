@@ -465,7 +465,7 @@ bool ConverterGLTF::convert(std::string output, std::string inputDff)
     return convert(output, dffStruct, txdStruct);
 }
 
-bool ConverterGLTF::convert(std::string output, std::string inputDff, std::string inputTxd)
+bool ConverterGLTF::convert(std::string output, std::string inputDff, std::string inputTxd, bool ignoreCorruptedTXD)
 {
     if (inputDff.empty() || inputTxd.empty() || output.empty())
         return false;
@@ -478,7 +478,14 @@ bool ConverterGLTF::convert(std::string output, std::string inputDff, std::strin
 
     try
     {
-        txdStruct.read(txd); //non essenziale
+        if (!txdStruct.read(txd))
+        {
+            if (!ignoreCorruptedTXD)
+                return false;
+            else
+                txdStruct = rw::TextureDictionary(); //vuota
+        }
+
 
         if (!dffStruct.read(dff))
             return false;

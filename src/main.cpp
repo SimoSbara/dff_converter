@@ -46,7 +46,7 @@ int main()
 
                     output = outDir + baseFile + ".gltf";
 
-                    if(converter.convert(output, dff, txd))
+                    if(converter.convert(output, dff, txd, false))
                         std::cout << baseFile << " converted" << std::endl;
                     else
                         std::cout << baseFile << " not converted!" << std::endl;

@@ -49,7 +49,7 @@ public:
 		this->tz = tz;
 	}
 
-	virtual bool convert(std::string output, std::string inputDff, std::string inputTxd);
+	virtual bool convert(std::string output, std::string inputDff, std::string inputTxd, bool ignoreCorruptedTXD = true);
 	virtual bool convert(std::string output, std::string inputDff);
 
 };
