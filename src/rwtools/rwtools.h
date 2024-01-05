@@ -22,6 +22,8 @@
 #else
 	#define READ_HEADER(x)\
 	if(!header.read(rw))\
+		return false;\
+	if (header.type != (x))\
 		return false;
 #endif
 

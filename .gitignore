@@ -5,3 +5,6 @@ out/*
 build/*
 bin/*
 CMakeSettings.json
+*.txd
+*.dff
+*.gltf

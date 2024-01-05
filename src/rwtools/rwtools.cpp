@@ -118,7 +118,8 @@ int8
 readInt8(istream &rw)
 {
 	int8 tmp;
-	rw.read(reinterpret_cast <char *> (&tmp), sizeof(int8));
+	if(!rw.read(reinterpret_cast <char *> (&tmp), sizeof(int8)))
+		return 0;
 	return tmp;
 }
 
@@ -126,7 +127,8 @@ uint8
 readUInt8(istream &rw)
 {
 	uint8 tmp;
-	rw.read(reinterpret_cast <char *> (&tmp), sizeof(uint8));
+	if(!rw.read(reinterpret_cast <char *> (&tmp), sizeof(uint8)))
+		return 0;
 	return tmp;
 }
 
@@ -134,7 +136,8 @@ int16
 readInt16(istream &rw)
 {
 	int16 tmp;
-	rw.read(reinterpret_cast <char *> (&tmp), sizeof(int16));
+	if(!rw.read(reinterpret_cast <char *> (&tmp), sizeof(int16)))
+		return 0;
 	return tmp;
 }
 
@@ -142,7 +145,8 @@ uint16
 readUInt16(istream &rw)
 {
 	uint16 tmp;
-	rw.read(reinterpret_cast <char *> (&tmp), sizeof(uint16));
+	if(!rw.read(reinterpret_cast <char *> (&tmp), sizeof(uint16)))
+		return 0;
 	return tmp;
 }
 
@@ -150,7 +154,10 @@ int32
 readInt32(istream &rw)
 {
 	int32 tmp;
-	rw.read(reinterpret_cast <char *> (&tmp), sizeof(int32));
+
+	if(!rw.read(reinterpret_cast <char *> (&tmp), sizeof(int32)))
+		return 0;
+
 	return tmp;
 }
 
@@ -158,7 +165,9 @@ uint32
 readUInt32(istream &rw)
 {
 	uint32 tmp;
-	rw.read(reinterpret_cast <char *> (&tmp), sizeof(uint32));
+	if (!rw.read(reinterpret_cast <char*> (&tmp), sizeof(uint32)))
+		return 0;
+
 	return tmp;
 }
 
@@ -166,7 +175,9 @@ float32
 readFloat32(istream &rw)
 {
 	float32 tmp;
-	rw.read(reinterpret_cast <char *> (&tmp), sizeof(float32));
+	if(!rw.read(reinterpret_cast <char *> (&tmp), sizeof(float32)))
+		return 0;
+
 	return tmp;
 }
 
